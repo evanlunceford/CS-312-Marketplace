@@ -1,6 +1,3 @@
-// Creates the database if needed, runs every migration in db/migrations that has not
-// run yet (in filename order), then runs every seed file in db/seeds.
-// Name new migrations with the next number: 002_create_users.sql, 003_create_listings.sql, etc.
 import pg from "pg";
 import fs from "fs/promises";
 import path from "path";
