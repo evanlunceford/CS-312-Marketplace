@@ -1,0 +1,26 @@
+/* Global design tokens. Use these instead of hard-coded colors, fonts or radii. */
+:root {
+  --color-background: #f7f7f8;
+  --color-surface: #ffffff;
+  --color-text: #1c1c21;
+  --color-text-muted: #6b6b76;
+  --color-border: #e2e2e7;
+  --color-primary: #2f6fed;
+  --color-primary-hover: #1f58c9;
+  --color-success: #1f8a4c;
+  --color-danger: #c93a3a;
+
+  --font-family-base: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-size-small: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-large: 1.25rem;
+  --font-size-title: 2rem;
+
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 16px;
+
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 2rem;
+}

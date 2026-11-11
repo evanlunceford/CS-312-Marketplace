@@ -1,0 +1,13 @@
+.not-found-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--spacing-large) var(--spacing-medium);
+}
+
+.not-found-title {
+  font-size: var(--font-size-title);
+}
+
+.not-found-link {
+  color: var(--color-primary);
+}

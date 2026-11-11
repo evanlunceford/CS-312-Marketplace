@@ -1,0 +1,22 @@
+.home-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--spacing-large) var(--spacing-medium);
+}
+
+.home-title {
+  font-size: var(--font-size-title);
+  margin: 0 0 var(--spacing-medium);
+}
+
+.home-status {
+  font-size: var(--font-size-small);
+}
+
+.home-status-healthy {
+  color: var(--color-success);
+}
+
+.home-status-unhealthy {
+  color: var(--color-danger);
+}
