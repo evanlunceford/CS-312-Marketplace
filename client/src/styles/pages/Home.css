@@ -20,3 +20,12 @@
 .home-status-unhealthy {
   color: var(--color-danger);
 }
+
+.home-user {
+  font-size: var(--font-size-small);
+}
+
+.home-sign-out-button {
+  font: inherit;
+  cursor: pointer;
+}

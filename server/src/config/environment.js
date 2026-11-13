@@ -2,4 +2,6 @@
 export const environment = {
   port: Number(process.env.PORT) || 8000,
   databaseName: process.env.PGDATABASE || "marketplace",
+  isProduction: process.env.NODE_ENV === "production",
+  sessionDurationInDays: 7,
 };
