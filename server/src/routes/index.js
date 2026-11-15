@@ -7,3 +7,7 @@ export const apiRoutes = Router();
 
 apiRoutes.use(healthRoutes);
 apiRoutes.use("/auth", authRoutes);
+
+const listingRoutes = require('./listingRoutes');
+// ... inside your router configuration:
+router.use('/listings', listingRoutes);
