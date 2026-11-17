@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "express": "^5.2.1",
+    "file-type": "^22.3.0",
+    "multer": "^2.5.0",
     "pg": "^8.16.0"
   }
 }

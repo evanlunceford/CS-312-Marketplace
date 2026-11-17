@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { apiRoutes } from "./routes/index.js";
 import { handleError, handleNotFound } from "./middleware/errorHandler.js";
+import { uploadDirectory } from "./config/uploadConfig.js";
 
 const serverSourceDirectory = path.dirname(fileURLToPath(import.meta.url));
 const clientBuildDirectory = path.join(serverSourceDirectory, "../../client/dist");
@@ -10,6 +11,21 @@ const clientBuildDirectory = path.join(serverSourceDirectory, "../../client/dist
 export const app = express();
 
 app.use(express.json());
+
+// Serve uploaded listing images
+app.use(
+  "/api/uploads",
+  express.static(uploadDirectory, {
+    index: false,
+    dotfiles: "deny",
+    setHeaders(response) {
+      response.setHeader(
+        "X-Content-Type-Options",
+        "nosniff"
+      );
+    }
+  })
+);
 
 app.use("/api", apiRoutes);
 app.use("/api", handleNotFound);
