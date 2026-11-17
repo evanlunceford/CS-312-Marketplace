@@ -6,7 +6,11 @@ export function readSessionToken(request) {
   for (const cookiePair of (request.headers.cookie ?? "").split(";")) {
     const separatorIndex = cookiePair.indexOf("=");
     if (separatorIndex !== -1 && cookiePair.slice(0, separatorIndex).trim() === SESSION_COOKIE_NAME) {
-      return decodeURIComponent(cookiePair.slice(separatorIndex + 1).trim());
+      try {
+        return decodeURIComponent(cookiePair.slice(separatorIndex + 1).trim());
+      } catch {
+        return null;
+      }
     }
   }
   return null;

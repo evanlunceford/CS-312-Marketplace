@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import * as authApi from "../api/authApi.js";
 
 const AuthContext = createContext(null);
@@ -7,24 +7,33 @@ const AuthContext = createContext(null);
 // null when signed out, and { userId, name, email, createdAt } when signed in.
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(undefined);
+  const authVersion = useRef(0);
 
   useEffect(() => {
-    authApi
-      .getCurrentUser()
-      .then(setCurrentUser)
-      .catch(() => setCurrentUser(null));
+    let active = true;
+    const version = authVersion.current;
+    function finishSessionCheck(user) {
+      if (active && authVersion.current === version) setCurrentUser(user);
+    }
+    authApi.getCurrentUser().then(finishSessionCheck).catch(() => finishSessionCheck(null));
+    return () => { active = false; };
   }, []);
 
   async function signUp(details) {
-    setCurrentUser(await authApi.signUp(details));
+    const user = await authApi.signUp(details);
+    authVersion.current += 1;
+    setCurrentUser(user);
   }
 
   async function signIn(credentials) {
-    setCurrentUser(await authApi.signIn(credentials));
+    const user = await authApi.signIn(credentials);
+    authVersion.current += 1;
+    setCurrentUser(user);
   }
 
   async function signOut() {
     await authApi.signOut();
+    authVersion.current += 1;
     setCurrentUser(null);
   }
 

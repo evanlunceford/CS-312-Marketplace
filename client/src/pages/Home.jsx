@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 import { getHealth } from "../api/healthApi.js";
 import { getErrorMessage } from "../api/httpClient.js";
 import { useAuth } from "../context/AuthContext.jsx";
@@ -10,6 +11,16 @@ export default function Home() {
   const { currentUser, signOut } = useAuth();
   const [healthMessage, setHealthMessage] = useState("Checking server...");
   const [isHealthy, setIsHealthy] = useState(false);
+  const [signOutError, setSignOutError] = useState("");
+
+  async function handleSignOut() {
+    try {
+      setSignOutError("");
+      await signOut();
+    } catch (error) {
+      setSignOutError(getErrorMessage(error));
+    }
+  }
 
   useEffect(() => {
     getHealth()
@@ -23,9 +34,11 @@ export default function Home() {
   return (
     <main className="home-page">
       <h1 className="home-title">Marketplace</h1>
+      <Link to="/listings">Browse listings</Link>
+      {signOutError && <p role="alert">{signOutError}</p>}
       <p className="home-user">
         Signed in as {currentUser.name} ({currentUser.userId}){" "}
-        <button className="home-sign-out-button" type="button" onClick={signOut}>
+        <button className="home-sign-out-button" type="button" onClick={handleSignOut}>
           Sign out
         </button>
       </p>

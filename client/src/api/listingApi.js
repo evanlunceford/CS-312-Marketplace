@@ -1,4 +1,4 @@
-import httpClient from './httpClient';
+import { httpClient } from './httpClient.js';
 
 export const listingApi = {
   getAll: async () => {

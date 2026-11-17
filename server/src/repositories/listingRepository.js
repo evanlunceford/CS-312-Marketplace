@@ -1,16 +1,16 @@
-const pool = require('../db/pool');
+import { pool } from '../db/pool.js';
 
 class ListingRepository {
   async findAll() {
     const result = await pool.query(
-      'SELECT l.*, u.username as seller_name FROM listings l JOIN users u ON l.user_id = u.id ORDER BY l.created_at DESC'
+      'SELECT l.*, u.name as seller_name FROM listings l JOIN users u ON l.user_id = u.user_id ORDER BY l.created_at DESC'
     );
     return result.rows;
   }
 
   async findById(id) {
     const result = await pool.query(
-      'SELECT l.*, u.username as seller_name FROM listings l JOIN users u ON l.user_id = u.id WHERE l.id = $1',
+      'SELECT l.*, u.name as seller_name FROM listings l JOIN users u ON l.user_id = u.user_id WHERE l.id = $1',
       [id]
     );
     return result.rows[0];
@@ -46,4 +46,4 @@ class ListingRepository {
   }
 }
 
-module.exports = new ListingRepository();
+export default new ListingRepository();

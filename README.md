@@ -26,6 +26,21 @@ Open http://localhost:5173. The home page should say "Server and database connec
 | `npm run build` | Builds the React app into `client/dist` |
 | `npm start` | Runs the server only; serves the built client if `client/dist` exists |
 
+## Checking for regressions
+
+Run `npm test` for request validation, session-cookie handling, server startup, and API error checks. Run `npm run build` to verify the complete routed client builds.
+
+Database integration checks are opt-in. Set the usual `PGHOST`, `PGPORT`, `PGUSER`, and `PGPASSWORD` connection variables for a PostgreSQL test server, then run:
+
+```powershell
+$env:MARKETPLACE_TEST_DATABASE = "1"
+npm test
+```
+
+The database tests create a uniquely named disposable database, run setup twice, exercise signup/signin/signout and listing CRUD (including owner permissions), and drop only that database afterward. The PostgreSQL role needs permission to create databases. Without the opt-in variable, these checks are reported as skipped.
+
+The original `004_create_listings.sql` referenced nonexistent `users(id)` and could never apply to the committed users schema. Its foreign key is corrected to the existing text `users(user_id)` so fresh setup and retrying the failed migration work. This repairs an un-runnable migration; future changes to successfully applied schemas still require a new migration.
+
 ## Project structure
 
 ```
